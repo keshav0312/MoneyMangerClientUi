@@ -38,32 +38,21 @@ const Login = () => {
     }
 
     try {
-      console.log("axios config app");
-      
       const response = await AxiosConfig.post(ApiEndpoints.LOGIN, { email, password });
-      console.log(response);
-      
-      localStorage.setItem("token", response.data.token);   
+      localStorage.setItem("token", response.data.token);
       toast.success("Login successful!");
       const { profile, token } = response.data;
-
-// Update user state in global context
-       setUser({ ...profile, token }); // <-- only profile + token
-
+      setUser({ ...profile, token });
       navigate("/dashboard");
     } catch (err) {
-      if (err.response?.data?.message) {
-        setError(err.response.data.message);
-      } else {
-        setError("An unexpected error occurred.");
-      }
+      setError(err.response?.data?.message || "An unexpected error occurred.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-indigo-50 via-purple-50 to-indigo-100">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-indigo-50 via-purple-50 to-indigo-100 px-4 sm:px-6 md:px-8">
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <img
@@ -74,23 +63,26 @@ const Login = () => {
       </div>
 
       {/* Animated circles */}
-      <div className="absolute top-10 left-10 w-36 h-36 bg-purple-300 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-float"></div>
-      <div className="absolute bottom-10 right-10 w-40 h-40 bg-indigo-300 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-bounce"></div>
+      <div className="absolute top-8 left-6 sm:top-10 sm:left-10 w-28 sm:w-36 h-28 sm:h-36 bg-purple-300 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-float"></div>
+      <div className="absolute bottom-8 right-6 sm:bottom-10 sm:right-10 w-32 sm:w-40 h-32 sm:h-40 bg-indigo-300 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-bounce"></div>
 
       {/* Login Card */}
-      <div className="relative z-10 w-full max-w-2xl mx-6">
-        <div className="bg-white/80 backdrop-blur-2xl rounded-3xl shadow-2xl p-12 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-indigo-400/50">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl font-extrabold text-gray-800 mb-3 tracking-wide">
+      <div className="relative z-10 w-full max-w-md sm:max-w-lg md:max-w-2xl mx-auto">
+        <div className="bg-white/80 backdrop-blur-2xl rounded-3xl shadow-2xl p-6 sm:p-8 md:p-12 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-indigo-400/50">
+          {/* Header */}
+          <div className="text-center mb-6 sm:mb-8 md:mb-10">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 mb-3 tracking-wide">
               Welcome Back 👋
             </h1>
-            <p className="text-gray-700 text-lg">
-              Login to your <span className="font-semibold text-indigo-600">Money Manager</span> account
-              and manage your expenses smartly.
+            <p className="text-gray-700 text-sm sm:text-base md:text-lg">
+              Login to your{" "}
+              <span className="font-semibold text-indigo-600">Money Manager</span> account and
+              manage your expenses smartly.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-7">
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6 md:space-y-7">
             <InputComponent
               label="Email Address"
               type="email"
@@ -107,23 +99,27 @@ const Login = () => {
             />
 
             {error && (
-              <div className="bg-red-100 border border-red-300 text-red-700 text-base rounded-lg p-3 text-center font-medium">
+              <div className="bg-red-100 border border-red-300 text-red-700 text-sm sm:text-base rounded-lg p-2 sm:p-3 text-center font-medium">
                 {error}
               </div>
             )}
 
+            {/* Login Button */}
             <button
               type="submit"
               disabled={loading}
-              className={`w-full flex justify-center items-center gap-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-5 rounded-2xl text-lg font-bold shadow-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-indigo-400 ${
-                loading ? "cursor-not-allowed opacity-70" : "hover:from-indigo-700 hover:to-purple-700 hover:-translate-y-1"
+              className={`w-full flex justify-center items-center gap-2 sm:gap-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 sm:py-4 px-5 rounded-2xl text-base sm:text-lg font-bold shadow-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-indigo-400 ${
+                loading
+                  ? "cursor-not-allowed opacity-70"
+                  : "hover:from-indigo-700 hover:to-purple-700 hover:-translate-y-1"
               }`}
             >
-              {loading ? <Loader className="animate-spin h-6 w-6 text-white" /> : "Login"}
+              {loading ? <Loader className="animate-spin h-5 w-5 sm:h-6 sm:w-6 text-white" /> : "Login"}
             </button>
 
-            <div className="text-center mt-6">
-              <p className="text-gray-700 text-base">
+            {/* Sign-up Link */}
+            <div className="text-center mt-5 sm:mt-6">
+              <p className="text-gray-700 text-sm sm:text-base">
                 Don’t have an account?{" "}
                 <Link
                   to="/signup"
