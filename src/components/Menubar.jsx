@@ -274,10 +274,10 @@ export const MenuBar = () => {
               <div className="space-y-3">
                 {[
                   { name: 'Dashboard', icon: PieChart, color: 'from-blue-500 to-cyan-500' },
-                  { name: 'Transactions', icon: CreditCard, color: 'from-green-500 to-emerald-500' },
-                  { name: 'Categories', icon: Settings, color: 'from-purple-500 to-pink-500' },
-                  { name: 'Analytics', icon: TrendingUp, color: 'from-orange-500 to-red-500' },
-                  { name: 'Settings', icon: Settings, color: 'from-gray-500 to-gray-700' }
+                  { name: 'category', icon: CreditCard, color: 'from-green-500 to-emerald-500' },
+                  { name: 'income', icon: Settings, color: 'from-purple-500 to-pink-500' },
+                  { name: 'expense', icon: TrendingUp, color: 'from-orange-500 to-red-500' },
+                  { name: 'filter', icon: Settings, color: 'from-gray-500 to-gray-700' }
                 ].map((item) => (
                   <button
                     key={item.name}
