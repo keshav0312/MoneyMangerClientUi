@@ -249,7 +249,7 @@ export const MenuBar = () => {
               <div className="flex gap-2">
                 <button 
                   onClick={() => {
-                    navigate("/profile");
+                    navigate("/dashboard");
                     closeSideMenu();
                   }}
                   className="flex-1 bg-white/10 hover:bg-white/20 text-white text-sm py-2.5 rounded-xl transition-all duration-200 font-medium"
